@@ -1,0 +1,16 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = Dennis Ruppel
+	email = dennis-ruppel@gmx.net
+
+
+[core]
+	editor = vim
+	quotepath = off
+[init]
+	defaultBranch = main
+[http]
+	sslVerify = true
+[pull]
+	ff = only
