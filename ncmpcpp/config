@@ -1,6 +1,6 @@
 ##
 # Files
-mpd_music_dir = "~/sink/Media/Music"  
+mpd_music_dir = "~/Music"
 lyrics_directory  = ~/.ncmpcpp/lyrics
 ncmpcpp_directory  = ~/.ncmpcpp
 mpd_host = "127.0.0.1"
