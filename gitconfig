@@ -6,7 +6,7 @@
 
 
 [core]
-	editor = vim
+	editor = nvim
 	quotepath = off
 [init]
 	defaultBranch = main
