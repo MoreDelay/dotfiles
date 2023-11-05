@@ -129,7 +129,6 @@ export PATH=$PATH:/usr/local/texlive/2021/bin/x86_64-linux
 # my additions
 # alias python="python3"
 alias pycharm="/opt/pycharm-community/bin/pycharm.sh"
-alias restart-plasma="kwin --replace && kquitapp5 plasmashell &>/dev/null && kstart5 plasmashell &>/dev/null"
 alias logout_gui="qdbus org.kde.Shutdown /Shutdown logout"
 alias vim=nvim
 
@@ -140,3 +139,6 @@ find ~/.mozilla/firefox -name "archived" | while read p; do rm -r "${p}"/*; done
 # alias wdiff="git diff --word-diff --no-index --word-diff-regex=."
 alias diff=colordiff
 adiff() { wdiff -n "$1" "$2" | colordiff; }
+
+# autojump with z <fuzzypath>
+eval "$(zoxide init bash)"

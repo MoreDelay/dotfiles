@@ -10,34 +10,27 @@
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
+	# include .bashrc if it exists
+	if [ -f "$HOME/.bashrc" ]; then
+		. "$HOME/.bashrc"
+	fi
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+if [ -d "$HOME/bin" ]; then
+	PATH="$HOME/bin:$PATH"
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+if [ -d "$HOME/.local/bin" ]; then
+	PATH="$HOME/.local/bin:$PATH"
 fi
 
-# my additions
+# environment variables
 export MPD_HOST=$HOME/.mpd/socket
 # LIBVA_DRIVER_NAME=vdpau
 export GTK_USE_PORTAL=1
+export EDITOR=nvim
 
-# make ls command print out time in iso format 
+# make ls command print out time in iso format
 export TIME_STYLE=long-iso
-
-# make GPU never stop completely (but also never speed up! take care)
-nvidia-settings -a "[gpu:0]/GPUFanControlState=1" \
-                -a "[fan:0]/GPUTargetFanSpeed=40" > /dev/null 2>&1
-
-# Rust install
-. "$HOME/.cargo/env"
-
