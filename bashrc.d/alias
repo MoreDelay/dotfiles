@@ -1,0 +1,8 @@
+
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias pycharm="/opt/pycharm-community/bin/pycharm.sh"
+alias logout_gui="qdbus org.kde.Shutdown /Shutdown logout"
+alias vim=nvim

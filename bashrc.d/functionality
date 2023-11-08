@@ -1,0 +1,29 @@
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+# ignoreboth: ignorespace and ignoredups
+# ignorespace: lines beginning with space are not saved to history
+# ignoredups: a command that is the same as the previous command is not
+# saved a second time
+# erasedups: if the same command is already present in history, delete it
+# and save only the most recent one
+HISTCONTROL=ignoreboth:erasedups
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=10000
+HISTFILESIZE=20000
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# remove some archive of firefox that slows it down tremendously on startup
+find ~/.mozilla/firefox -name "archived" | while read p; do rm -r "${p}"/*; done 2>/dev/null
+
+# colored diff option
+# alias wdiff="git diff --word-diff --no-index --word-diff-regex=."
+alias diff=colordiff
+adiff() { wdiff -n "$1" "$2" | colordiff; }
+
+# autojump with z <fuzzypath>
+eval "$(zoxide init bash)"
