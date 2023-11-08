@@ -1,0 +1,13 @@
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+# ignoreboth: ignorespace and ignoredups
+# ignorespace: lines beginning with space are not saved to history
+# ignoredups: a command that is the same as the previous command is not
+# saved a second time
+# erasedups: if the same command is already present in history, delete it
+# and save only the most recent one
+HISTCONTROL=ignoreboth:erasedups
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=10000
+HISTFILESIZE=20000
