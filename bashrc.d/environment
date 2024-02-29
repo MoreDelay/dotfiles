@@ -28,12 +28,19 @@ __prompt_command() {
     local CMagenta='\[\e[0;35m\]'
     local CCyan='\[\e[0;36m\]'
 
-    PS1+="${CCyan}\u@\h${CReset}:${CBlue}\w${CReset}"
-
+    # user name and host
+    PS1+="${CCyan}\u@\h${CReset}:"
+    
+    # directory
+    PS1+="${CBlue}\w${CReset}"
+    
+    # prompt symbol
     # show return code if it is not 0
     if [[ $EXIT != 0 ]]; then
-      PS1+=" ${CRed}$EXIT${CReset}"
+        # PS1+=" ${CRed}$EXIT$ ${CReset}"
+        PS1+="${CRed}$ ${CReset}"
+    else
+        PS1+="$ "
     fi
 
-    PS1+="$ "
 }

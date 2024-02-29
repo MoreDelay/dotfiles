@@ -34,5 +34,5 @@ export TIME_STYLE=long-iso
 
 # fcitx5 input method
 export XMODIFIERS=@im=fcitx
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
+unset GTK_IM_MODULE
+unset QT_IM_MODULE
