@@ -749,6 +749,15 @@ require("lazy").setup({
 				additional_vim_regex_highlighting = { "ruby" },
 			},
 			indent = { enable = true, disable = { "ruby" } },
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					init_selection = "vn", -- set to `false` to disable one of the mappings
+					node_incremental = "n",
+					node_decremental = "N",
+					scope_incremental = false,
+				},
+			},
 		},
 		config = function(_, opts)
 			-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
