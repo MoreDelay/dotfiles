@@ -773,6 +773,27 @@ require("lazy").setup({
 			--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 		end,
 	},
+	-- Plugins added by me
+	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			local trouble = require("trouble")
+			trouble.setup()
+
+			vim.keymap.set("n", "<leader>ct", function()
+				trouble.toggle()
+			end, { desc = "Trouble: toggle panel" })
+
+			vim.keymap.set("n", "<leader>[t", function()
+				trouble.next({ skip_groups = true, jump = true })
+			end, { desc = "Trouble: next trouble" })
+
+			vim.keymap.set("n", "<leader>]t", function()
+				trouble.previous({ skip_groups = true, jump = true })
+			end, { desc = "Trouble: previous trouble" })
+		end,
+	},
 
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
 	-- init.lua. If you want these files, they are in the repository, so you can just download them and
