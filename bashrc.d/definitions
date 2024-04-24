@@ -6,3 +6,4 @@ adiff() { wdiff -n "$1" "$2" | colordiff; }
 
 # autojump with z <fuzzypath>
 eval "$(zoxide init bash)"
+

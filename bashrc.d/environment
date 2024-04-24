@@ -12,7 +12,7 @@ HISTCONTROL=ignoreboth:erasedups
 HISTSIZE=10000
 HISTFILESIZE=20000
 
-PROMPT_COMMAND=__prompt_command    # Function to generate PS1 after CMDs
+PROMPT_COMMAND="${PROMPT_COMMAND}__prompt_command"    # Function to generate PS1 after CMDsb
 
 __prompt_command() {
     local EXIT="$?"                # This needs to be first
@@ -30,10 +30,10 @@ __prompt_command() {
 
     # user name and host
     PS1+="${CCyan}\u@\h${CReset}:"
-    
+
     # directory
     PS1+="${CBlue}\w${CReset}"
-    
+
     # prompt symbol
     # show return code if it is not 0
     if [[ $EXIT != 0 ]]; then
