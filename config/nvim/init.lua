@@ -761,6 +761,37 @@ require("lazy").setup({
 					scope_incremental = false,
 				},
 			},
+			textobjects = {
+				move = {
+					enable = true,
+					set_jumps = true,
+					goto_next_start = {
+						["]f"] = { query = "@function.outer", desc = "Next function start" },
+						["]c"] = { query = "@class.outer", desc = "Next class start" },
+					},
+					goto_next_end = {
+						["]F"] = { query = "@function.outer", desc = "Next function end" },
+						["]C"] = { query = "@class.outer", desc = "Next class end" },
+					},
+					goto_previous_start = {
+						["[f"] = { query = "@function.outer", desc = "Previous function start" },
+						["[c"] = { query = "@class.outer", desc = "Previous class start" },
+					},
+					goto_previous_end = {
+						["[F"] = { query = "@function.outer", desc = "Previous function end" },
+						["[C"] = { query = "@class.outer", desc = "Previous class end" },
+					},
+				},
+				lsp_interop = {
+					enable = true,
+					border = "none",
+					floating_preview_opts = {},
+					peek_definition_code = {
+						["<leader>df"] = "@function.outer",
+						["<leader>dF"] = "@class.outer",
+					},
+				},
+			},
 		},
 		config = function(_, opts)
 			-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -777,6 +808,11 @@ require("lazy").setup({
 		end,
 	},
 	-- Plugins added by me
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+	},
+
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
