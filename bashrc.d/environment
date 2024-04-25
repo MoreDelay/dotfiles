@@ -12,10 +12,17 @@ HISTCONTROL=ignoreboth:erasedups
 HISTSIZE=10000
 HISTFILESIZE=20000
 
-PROMPT_COMMAND="${PROMPT_COMMAND}__prompt_command"    # Function to generate PS1 after CMDsb
+last_semicolon=$(echo ${PROMPT_COMMAND} | awk '{print substr($0,length,1)}')
+
+if [[ "$last_semicolon" != ";" ]]
+then
+    PROMPT_COMMAND="${PROMPT_COMMAND};__prompt_command"
+else
+    PROMPT_COMMAND="${PROMPT_COMMAND}__prompt_command"
+fi
 
 __prompt_command() {
-    local EXIT="$?"                # This needs to be first
+    local EXIT="$?"  # This needs to be first
     PS1=""
 
     local CReset='\[\e[0m\]'
