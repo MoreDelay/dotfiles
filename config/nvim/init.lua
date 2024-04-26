@@ -68,8 +68,17 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-----------------------
 -- Custom Options by me
 vim.opt.softtabstop = 4
+
+-- Add more filetypes that are missing
+vim.filetype.add({
+	extension = {
+		vert = "vert",
+		frag = "frag",
+	},
+})
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -474,6 +483,7 @@ require("lazy").setup({
 				pyright = {},
 				rust_analyzer = {},
 				bashls = {},
+				glsl_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
 				-- Some languages (like typescript) have entire language plugins that can be useful:
