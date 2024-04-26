@@ -75,8 +75,8 @@ vim.opt.softtabstop = 4
 -- Add more filetypes that are missing
 vim.filetype.add({
 	extension = {
-		vert = "vert",
-		frag = "frag",
+		vert = "glsl",
+		frag = "glsl",
 	},
 })
 
@@ -750,7 +750,7 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
-			ensure_installed = { "bash", "c", "lua", "luadoc", "markdown", "rust", "cpp" },
+			ensure_installed = { "bash", "c", "lua", "luadoc", "markdown", "rust", "cpp", "glsl" },
 			-- Autoinstall languages that are not installed
 			auto_install = true,
 			highlight = {
