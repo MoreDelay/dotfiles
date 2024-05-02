@@ -70,7 +70,12 @@ vim.opt.scrolloff = 10
 
 -----------------------
 -- Custom Options by me
+
+-- use spaces for indenting, always
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 
 -- Add more filetypes that are missing
 vim.filetype.add({
@@ -613,6 +618,7 @@ require("lazy").setup({
 			--  into multiple repos for maintenance purposes.
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
+			{ "tzachar/cmp-fuzzy-path", dependencies = { "tzachar/fuzzy.nvim" } },
 		},
 		config = function()
 			-- See `:help cmp`
