@@ -618,7 +618,6 @@ require("lazy").setup({
 			--  into multiple repos for maintenance purposes.
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-path",
-			{ "tzachar/cmp-fuzzy-path", dependencies = { "tzachar/fuzzy.nvim" } },
 		},
 		config = function()
 			-- See `:help cmp`
@@ -683,7 +682,20 @@ require("lazy").setup({
 				sources = {
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
-					{ name = "path" },
+					{
+						name = "path",
+						option = {
+							-- Use project root for relative paths.
+							get_cwd = function()
+								local lsp_path = vim.lsp.buf.list_workspace_folders()[1]
+								if lsp_path then
+									return lsp_path
+								else
+									return vim.loop.cwd()
+								end
+							end,
+						},
+					},
 				},
 			})
 		end,
