@@ -122,8 +122,8 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 -- vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Custom Key Mappings by myself
-vim.keymap.set("n", "<C-j>", ":cnext<CR>", { desc = "Go to next in quickfix list" })
-vim.keymap.set("n", "<C-k>", ":cprev<CR>", { desc = "Go to previous in quickfix list" })
+vim.keymap.set("n", "<C-n>", ":cnext<CR>", { desc = "Go to next in quickfix list" })
+vim.keymap.set("n", "<C-m>", ":cprev<CR>", { desc = "Go to previous in quickfix list" })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -402,6 +402,7 @@ require("lazy").setup({
 
 					-- custom mapping for lsp:
 					imap("<C-s>", vim.lsp.buf.signature_help, "show signature")
+					nmap("<C-s>", vim.lsp.buf.signature_help, "show signature")
 
 					local builtin = require("telescope.builtin")
 
@@ -859,6 +860,22 @@ require("lazy").setup({
 				trouble.previous({ skip_groups = true, jump = true })
 			end, { desc = "Trouble: previous trouble" })
 		end,
+	},
+
+	{
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateRight",
+			"TmuxNavigateUp",
+			"TmuxNavigateDown",
+		},
+		keys = {
+			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+			{ "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+			{ "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+		},
 	},
 
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
