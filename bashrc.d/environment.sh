@@ -12,7 +12,10 @@ HISTCONTROL=ignoreboth:erasedups
 HISTSIZE=10000
 HISTFILESIZE=20000
 
-last_semicolon=$(echo ${PROMPT_COMMAND} | awk '{print substr($0,length,1)}')
+# save history immediately and load too to share with all sessions
+PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
+
+last_semicolon=$(echo "${PROMPT_COMMAND}" | awk '{print substr($0,length,1)}')
 
 if [[ "$last_semicolon" != ";" ]]
 then
