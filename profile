@@ -36,3 +36,10 @@ export TIME_STYLE=long-iso
 export XMODIFIERS=@im=fcitx
 unset GTK_IM_MODULE
 unset QT_IM_MODULE
+
+# make sure bashrc is loaded for all interactive sessions
+if [ -n "$BASH_VERSION" -a -n "$PS1" ]; then
+	if [ -f "$HOME/.bashrc" ]; then
+		. "$HOME/.bashrc"
+	fi
+fi
