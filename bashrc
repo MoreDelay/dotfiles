@@ -8,7 +8,7 @@ fi
 
 # User specific environment
 
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+if ! [[ "$PATH" =~ $HOME/.local/bin:$HOME/bin: ]]; then
 	PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 
@@ -23,6 +23,7 @@ export PATH
 if [ -d ~/.bashrc.d ]; then
 	for rc in ~/.bashrc.d/*; do
 		if [ -f "$rc" ]; then
+			# shellcheck source=/dev/null
 			. "$rc"
 		fi
 	done
