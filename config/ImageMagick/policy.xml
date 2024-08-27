@@ -44,7 +44,7 @@
   <!-- Set maximum amount of memory in bytes to allocate for the pixel cache
        from the heap. When this limit is exceeded, the image pixels are cached
        to memory-mapped disk. -->
-  <policy domain="resource" name="memory" value="256MiB"/>
+  <policy domain="resource" name="memory" value="512MiB"/>
   <!-- Set maximum amount of memory map in bytes to allocate for the pixel
        cache. When this limit is exceeded, the image pixels are cached to
        disk. -->
@@ -55,16 +55,16 @@
   <!-- Set maximum amount of disk space in bytes permitted for use by the pixel
        cache. When this limit is exceeded, the pixel cache is not be created
        and an exception is thrown. -->
-  <policy domain="resource" name="disk" value="1GiB"/>
+  <policy domain="resource" name="disk" value="8GiB"/>
   <!-- Set the maximum length of an image sequence.  When this limit is
        exceeded, an exception is thrown. -->
   <policy domain="resource" name="list-length" value="16"/>
   <!-- Set the maximum width of an image.  When this limit is exceeded, an
        exception is thrown. -->
-  <policy domain="resource" name="width" value="10KP"/>
+  <policy domain="resource" name="width" value="16KP"/>
   <!-- Set the maximum height of an image.  When this limit is exceeded, an
        exception is thrown. -->
-  <policy domain="resource" name="height" value="10KP"/>
+  <policy domain="resource" name="height" value="16KP"/>
   <!-- Periodically yield the CPU for at least the time specified in
        milliseconds. -->
   <policy domain="resource" name="throttle" value="2"/>
@@ -96,5 +96,5 @@
   <policy domain="system" name="memory-map" value="anonymous"/>
   <!-- Set the maximum amount of memory in bytes that is permitted for
        allocation requests. -->
-  <policy domain="system" name="max-memory-request" value="256MiB"/>
+  <policy domain="system" name="max-memory-request" value="512MiB"/>
 </policymap>
