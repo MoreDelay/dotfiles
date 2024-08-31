@@ -775,11 +775,27 @@ require("lazy").setup({
 			require("mini.ai").setup({ n_lines = 500 })
 
 			-- Add/delete/replace surroundings (brackets, quotes, etc.)
+			-- see :h MiniSurround.config
 			--
 			-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
 			-- - sd'   - [S]urround [D]elete [']quotes
 			-- - sr)'  - [S]urround [R]eplace [)] [']
-			require("mini.surround").setup()
+			require("mini.surround").setup({
+				mappings = {
+					add = "gsa",
+					delete = "gsd",
+					replace = "gsr",
+					find = "gsf",
+					find_left = "gsF",
+					highlight = "gsh",
+					update_n_lines = "gsn",
+
+					suffix_last = "N",
+					suffix_next = "n",
+				},
+
+				search_method = "cover_or_next",
+			})
 
 			-- Simple and easy statusline.
 			--  You could remove this setup call if you don't like it,
