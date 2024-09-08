@@ -3,7 +3,6 @@ case ":$PATH:" in
 	*:"$HOME/bin":*)
 		;;
 	*)
-		echo add "$HOME/bin" to "$PATH"
 		PATH="$HOME/bin:$PATH"
 		;;
 esac
@@ -13,7 +12,6 @@ case ":$PATH:" in
 	*:"$HOME/.local/bin":*)
 		;;
 	*)
-		echo add "$HOME/.local/bin" to "$PATH"
 		PATH="$HOME/.local/bin:$PATH"
 		;;
 esac
@@ -23,7 +21,6 @@ case ":$PATH:" in
 	*:"$HOME/.cargo/bin":*)
 		;;
 	*)
-		echo add "$HOME/.cargo/bin" to "$PATH"
 		PATH="$HOME/.cargo/bin:$PATH"
 		;;
 esac
