@@ -54,3 +54,4 @@ __prompt_command() {
     fi
 
 }
+
