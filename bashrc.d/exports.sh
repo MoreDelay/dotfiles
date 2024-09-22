@@ -41,3 +41,6 @@ export XMODIFIERS=@im=fcitx
 unset GTK_IM_MODULE
 unset QT_IM_MODULE
 
+# setup vulkan sdk
+source $HOME/hdd/clones/vulkan/1.3.290.0/setup-env.sh
+
