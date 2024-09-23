@@ -1,8 +1,13 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
+config.window_close_confirmation = "NeverPrompt"
+
 config.font = wezterm.font("FiraCode Nerd Font Mono", { weight = "Medium" })
 config.font_size = 10
+
+config.initial_rows = 59
+config.initial_cols = 120
 
 config.color_scheme = "Breeze"
 config.colors = {
