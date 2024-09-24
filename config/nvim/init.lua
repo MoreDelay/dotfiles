@@ -940,7 +940,9 @@ require("lazy").setup({
 		main = "ibl",
 		---@module "ibl"
 		---@type ibl.config
-		opts = {},
+		opts = {
+			scope = { show_start = false, show_end = false },
+		},
 	},
 
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
