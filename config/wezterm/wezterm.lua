@@ -3,11 +3,14 @@ local config = wezterm.config_builder()
 
 config.window_close_confirmation = "NeverPrompt"
 
-config.font = wezterm.font("FiraCode Nerd Font Mono", { weight = "Medium" })
+config.font = wezterm.font_with_fallback({
+	{ family = "FiraCode Nerd Font Mono", weight = "Medium" },
+	{ family = "Noto Sans Mono CJK JP" },
+})
 config.font_size = 10
 
 config.initial_rows = 59
-config.initial_cols = 120
+config.initial_cols = 110
 
 config.color_scheme = "Breeze"
 config.colors = {
