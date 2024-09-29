@@ -5,7 +5,7 @@ config.window_close_confirmation = "NeverPrompt"
 
 config.font = wezterm.font_with_fallback({
 	{ family = "FiraCode Nerd Font Mono", weight = "Medium" },
-	{ family = "Noto Sans Mono CJK JP" },
+	{ family = "Noto Sans CJK JP" },
 })
 config.font_size = 10
 
