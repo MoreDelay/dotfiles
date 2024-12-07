@@ -252,6 +252,7 @@ require("lazy").setup({
 			-- Useful for getting pretty icons, but requires a Nerd Font.
 			"nvim-tree/nvim-web-devicons",
 			-- { "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+			"debugloop/telescope-undo.nvim",
 		},
 		config = function()
 			-- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -289,12 +290,19 @@ require("lazy").setup({
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
 					},
+					undo = {
+						time_format = "%Y-%m-%d %H:%M:%S",
+						side_by_side = true,
+						layout_strategy = "vertical",
+						layout_config = { preview_height = 0.6 },
+					},
 				},
 			})
 
 			-- Enable Telescope extensions if they are installed
 			pcall(require("telescope").load_extension, "fzf")
 			pcall(require("telescope").load_extension, "ui-select")
+			pcall(require("telescope").load_extension, "undo")
 
 			-- See `:help telescope.builtin`
 			local builtin = require("telescope.builtin")
@@ -331,6 +339,9 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sn", function()
 				builtin.find_files({ cwd = vim.fn.stdpath("config") })
 			end, { desc = "[S]earch [N]eovim files" })
+
+			-- undo
+			vim.keymap.set("n", "<leader>cu", "<cmd>Telescope undo<cr>")
 		end,
 	},
 
@@ -900,23 +911,25 @@ require("lazy").setup({
 	{
 		"folke/trouble.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			local trouble = require("trouble")
-			trouble.setup({ icons = {} })
-			-- trouble.setup()
-
-			vim.keymap.set("n", "<leader>ct", function()
-				trouble.toggle({ mode = "diagnostics", focus = true })
-			end, { desc = "Trouble: toggle panel" })
-
-			vim.keymap.set("n", "<leader>]t", function()
-				trouble.next({ mode = "diagnostics", skip_groups = true, jump = true })
-			end, { desc = "Trouble: next trouble" })
-
-			vim.keymap.set("n", "<leader>[t", function()
-				trouble.prev({ mode = "diagnostics", skip_groups = true, jump = true })
-			end, { desc = "Trouble: previous trouble" })
-		end,
+		opts = {},
+		cmd = "Trouble",
+		keys = {
+			{
+				"<leader>ct",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Trouble: toggle panel",
+			},
+			{
+				"<leader>]t",
+				"<cmd>Trouble diagnostics next<cr>",
+				desc = "Trouble: next trouble",
+			},
+			{
+				"<leader>[t",
+				"<cmd>Trouble diagnostics prev<cr>",
+				desc = "Trouble: previous trouble",
+			},
+		},
 	},
 
 	{
