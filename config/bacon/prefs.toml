@@ -11,7 +11,7 @@
 # Uncomment and change the value (true/false) to
 # specify whether bacon should start with lines wrapped
 #
-wrap = false
+wrap = true
 
 
 # In "reverse" mode, the focus is at the bottom, item
