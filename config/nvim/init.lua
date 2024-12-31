@@ -212,6 +212,7 @@ require("lazy").setup({
 
 			-- Document existing key chains
 			require("which-key").add({
+				{ "<leader>b", group = "De[B]ug" },
 				{ "<leader>c", group = "[C]ode", mode = { "n", "x" } },
 				{ "<leader>d", group = "[D]ocument" },
 				{ "<leader>r", group = "[R]ename" },
@@ -560,7 +561,9 @@ require("lazy").setup({
 
 			-- You can add other tools here that you want Mason to install
 			-- for you, so that they are available from within Neovim.
-			local ensure_installed = vim.tbl_keys(servers or {})
+			local ensure_installed = vim.tbl_keys(servers or {
+				"cpptools",
+			})
 			vim.list_extend(ensure_installed, {
 				"stylua",
 			})
@@ -956,6 +959,61 @@ require("lazy").setup({
 		opts = {
 			scope = { show_start = false, show_end = false },
 		},
+	},
+
+	-- debugging plugins
+	{
+		"mfussenegger/nvim-dap",
+		config = function()
+			local dap = require("dap")
+			--
+			-- adapters
+			dap.adapters.cppdbg = {
+				id = "cppdbg",
+				type = "executable",
+				command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/OpenDebugAD7",
+			}
+
+			-- configurations
+			dap.configurations.cpp = {
+				{
+					name = "Launch file",
+					type = "cppdbg",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
+					end,
+					cwd = "${workspaceFolder}",
+					stopAtEntry = true,
+					setupCommands = {
+						{
+							text = "-enable-pretty-printing",
+							description = "enable pretty printing",
+							ignoreFailures = false,
+						},
+					},
+				},
+			}
+			dap.configurations.c = dap.configurations.cpp
+			dap.configurations.rust = dap.configurations.cpp
+
+			vim.keymap.set("n", "<leader>bb", dap.toggle_breakpoint, { desc = "De[B]ug [B]reakpoint" })
+			vim.keymap.set("n", "<leader>bc", dap.continue, { desc = "De[B]ug [C]ontinue" })
+			vim.keymap.set("n", "<leader>bn", dap.step_over, { desc = "De[B]ug [N]ext Line" })
+			vim.keymap.set("n", "<leader>bs", dap.step_into, { desc = "De[B]ug [S]tep Into" })
+			vim.keymap.set("n", "<leader>bo", dap.step_into, { desc = "De[B]ug Step [O]ut" })
+			vim.keymap.set("n", "<leader>bq", dap.terminate, { desc = "De[B]ug [Q]uit" })
+		end,
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+		config = function()
+			local dapui = require("dapui")
+			dapui.setup()
+
+			vim.keymap.set("n", "<leader>bu", dapui.toggle, { desc = "De[B]ug [U]ser Interface" })
+		end,
 	},
 
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
