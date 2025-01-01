@@ -563,6 +563,7 @@ require("lazy").setup({
 			-- for you, so that they are available from within Neovim.
 			local ensure_installed = vim.tbl_keys(servers or {
 				"cpptools",
+				"codelldb",
 			})
 			vim.list_extend(ensure_installed, {
 				"stylua",
@@ -974,6 +975,11 @@ require("lazy").setup({
 				command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/OpenDebugAD7",
 			}
 
+			dap.adapters.codelldb = {
+				type = "executable",
+				command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/codelldb",
+			}
+
 			-- configurations
 			dap.configurations.cpp = {
 				{
@@ -981,7 +987,7 @@ require("lazy").setup({
 					type = "cppdbg",
 					request = "launch",
 					program = function()
-						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
 					end,
 					cwd = "${workspaceFolder}",
 					stopAtEntry = true,
@@ -995,7 +1001,19 @@ require("lazy").setup({
 				},
 			}
 			dap.configurations.c = dap.configurations.cpp
-			dap.configurations.rust = dap.configurations.cpp
+
+			dap.configurations.rust = {
+				{
+					name = "Launch file",
+					type = "codelldb",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
+					end,
+					cwd = "${workspaceFolder}",
+					stopOnEntry = true,
+				},
+			}
 
 			vim.keymap.set("n", "<leader>bb", dap.toggle_breakpoint, { desc = "De[B]ug [B]reakpoint" })
 			vim.keymap.set("n", "<leader>bc", dap.continue, { desc = "De[B]ug [C]ontinue" })
