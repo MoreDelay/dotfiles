@@ -1007,12 +1007,18 @@ require("lazy").setup({
 					type = "codelldb",
 					request = "launch",
 					program = function()
+						vim.fn.system("cargo build")
+						-- return vim.fn.getcwd() .. "/target/debug/" .. "${workspaceFolderBasename}"
+						-- choosing the binary directly is useful if you want to debug the test build
 						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
 					end,
 					cwd = "${workspaceFolder}",
-					stopOnEntry = true,
+					stopOnEntry = false,
 				},
 			}
+
+			vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
+			vim.fn.sign_define("DapStopped", { text = "▶️", texthl = "", linehl = "", numhl = "" })
 
 			vim.keymap.set("n", "<leader>bb", dap.toggle_breakpoint, { desc = "De[B]ug [B]reakpoint" })
 			vim.keymap.set("n", "<leader>bc", dap.continue, { desc = "De[B]ug [C]ontinue" })
