@@ -51,6 +51,7 @@ return {
 							["ac"] = "@class.outer",
 							["ic"] = "@class.inner",
 						},
+						include_surrounding_whitespace = true,
 					},
 					move = {
 						enable = true,
@@ -70,6 +71,19 @@ return {
 						goto_previous_end = {
 							["[F"] = { query = "@function.outer", desc = "Previous function end" },
 							["[C"] = { query = "@class.outer", desc = "Previous class end" },
+						},
+					},
+					swap = {
+						enable = true,
+						swap_next = {
+							["<A-l>"] = "@parameter.inner",
+							["<A-j>"] = "@statement.outer",
+							["<S-A-j>"] = "@function.outer",
+						},
+						swap_previous = {
+							["<A-h>"] = "@parameter.inner",
+							["<A-k>"] = "@statement.outer",
+							["<S-A-k>"] = "@function.outer",
 						},
 					},
 					lsp_interop = {
