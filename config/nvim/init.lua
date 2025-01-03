@@ -84,6 +84,11 @@ vim.filetype.add({
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- easier line movement without entering insert mode
+vim.keymap.set({ "n", "v" }, "gh", "0")
+vim.keymap.set("n", "gl", "$")
+vim.keymap.set("v", "gl", "$h")
+
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
