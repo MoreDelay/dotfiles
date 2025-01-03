@@ -172,8 +172,8 @@ return {
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
 	},
-	-- Plugins added by me
 
+	-- switch between tmux and nvim windows easily with the same key bindings
 	{
 		"christoomey/vim-tmux-navigator",
 		cmd = {
@@ -190,6 +190,7 @@ return {
 		},
 	},
 
+	-- show identation and scope guide lines
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
