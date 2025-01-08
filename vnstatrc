@@ -5,7 +5,8 @@
 
 
 # default interface (leave empty for automatic selection)
-Interface "wlp30s0"
+# see a list of interfaces with: netstat -i
+# Interface "wlan0"
 
 # location of the database directory
 ;DatabaseDir "/var/lib/vnstat"
