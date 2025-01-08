@@ -42,7 +42,7 @@ unset GTK_IM_MODULE
 unset QT_IM_MODULE
 
 # setup vulkan sdk
-if [ -e $HOME/hdd/clones/vulkan/1.3.290.0/setup-env.sh ]; then
+if [ -e $HOME/clones/vulkan/1.3.290.0/setup-env.sh ]; then
 	source $HOME/hdd/clones/vulkan/1.3.290.0/setup-env.sh
 fi
 
