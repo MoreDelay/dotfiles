@@ -15,6 +15,9 @@ HISTFILESIZE=20000
 # save history immediately and load too to share with all sessions
 PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
 
+# set environments for programs
+FZF_DEFAULT_COMMAND="fd --type file --follow"
+
 last_semicolon=$(echo "${PROMPT_COMMAND}" | awk '{print substr($0,length,1)}')
 
 if [[ "$last_semicolon" != ";" ]]
