@@ -62,8 +62,9 @@ return {
 			vim.keymap.set("n", "<leader>bc", dap.continue, { desc = "De[B]ug [C]ontinue" })
 			vim.keymap.set("n", "<leader>bn", dap.step_over, { desc = "De[B]ug [N]ext Line" })
 			vim.keymap.set("n", "<leader>bs", dap.step_into, { desc = "De[B]ug [S]tep Into" })
-			vim.keymap.set("n", "<leader>bo", dap.step_into, { desc = "De[B]ug Step [O]ut" })
+			vim.keymap.set("n", "<leader>bo", dap.step_out, { desc = "De[B]ug Step [O]ut" })
 			vim.keymap.set("n", "<leader>bq", dap.terminate, { desc = "De[B]ug [Q]uit" })
+			vim.keymap.set("n", "<leader>bh", dap.run_to_cursor, { desc = "De[B]ug until [H]ere" })
 		end,
 	},
 

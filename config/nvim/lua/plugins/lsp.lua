@@ -138,7 +138,17 @@ return {
 				clangd = {},
 				-- gopls = {},
 				pyright = {},
-				rust_analyzer = {},
+				rust_analyzer = {
+					-- settings = {
+					-- 	["rust-analyzer"] = {
+					-- 		hover = {
+					-- 			memoryLayout = {
+					-- 				niches = true,
+					-- 			},
+					-- 		},
+					-- 	},
+					-- },
+				},
 				bashls = {},
 				glsl_analyzer = {},
 				-- See `:help lspconfig-all` for a list of all the pre-configured LSPs
