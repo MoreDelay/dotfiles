@@ -129,7 +129,13 @@ return {
 			--  - va)  - [V]isually select [A]round [)]paren
 			--  - yinq - [Y]ank [I]nside [N]ext [Q]uote
 			--  - ci'  - [C]hange [I]nside [']quote
-			require("mini.ai").setup({ n_lines = 500 })
+			local spec_pair = require("mini.ai").gen_spec.pair
+			require("mini.ai").setup({
+				custom_textobjects = {
+					["|"] = spec_pair("|", "|", { type = "non-balanced" }),
+				},
+				n_lines = 500,
+			})
 
 			-- Add/delete/replace surroundings (brackets, quotes, etc.)
 			-- see :h MiniSurround.config
