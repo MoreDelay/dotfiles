@@ -24,6 +24,8 @@ return {
 			-- Useful status updates for LSP.
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 			{ "j-hui/fidget.nvim", opts = {} },
+
+			"saghen/blink.cmp",
 		},
 		config = function()
 			--  This function gets run when an LSP attaches to a particular buffer.
@@ -42,7 +44,8 @@ return {
 					map("i", "<C-s>", vim.lsp.buf.signature_help, "show signature")
 					map("n", "<C-s>", vim.lsp.buf.signature_help, "show signature")
 
-					local builtin = require("telescope.builtin")
+					-- local builtin = require("telescope.builtin")
+					local builtin = require("fzf-lua")
 
 					-- Jump to the definition of the word under your cursor.
 					--  To jump back, press <C-t>.
@@ -58,7 +61,8 @@ return {
 					-- Jump to the type of the word under your cursor.
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
-					map("n", "<leader>D", builtin.lsp_type_definitions, "Type [D]efinition")
+					-- map("n", "<leade>D", builtin.lsp_type_definitions, "Type [D]efinition")
+					map("n", "<leade>D", builtin.lsp_typedefs, "Type [D]efinition")
 
 					-- Fuzzy find all the symbols in your current document.
 					--  Symbols are things like variables, functions, types, etc.
@@ -66,7 +70,8 @@ return {
 
 					-- Fuzzy find all the symbols in your current workspace.
 					--  Similar to document symbols, except searches over your entire project.
-					map("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+					-- map("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+					map("n", "<leader>ws", builtin.lsp_live_workspace_symbols, "[W]orkspace [S]ymbols")
 
 					-- Rename the variable under your cursor.
 					--  Most Language Servers support renaming across files, etc.
@@ -130,12 +135,15 @@ return {
 			--  By default, Neovim doesn't support everything that is in the LSP specification.
 			--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
 			--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+			-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+			-- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 			-- Enable the following language servers
 			local servers = {
-				clangd = {},
+				clangd = {
+					-- cmd = { "clangd", "--log=verbose" },
+				},
 				-- gopls = {},
 				pyright = {},
 				rust_analyzer = {
