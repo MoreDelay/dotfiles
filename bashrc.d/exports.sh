@@ -41,6 +41,7 @@ export XMODIFIERS=@im=fcitx
 unset GTK_IM_MODULE
 unset QT_IM_MODULE
 
+eval "$(fzf --bash)"
 # make fzf use fd
 export FZF_DEFAULT_COMMAND="fd --type file --follow"
 
