@@ -15,6 +15,11 @@ HISTFILESIZE=20000
 # save history immediately and load too to share with all sessions
 PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
 
+# make sure ssh key is setup when available
+if [ -f ~/.ssh/id_rsa ]; then
+    ssh-add ~/.ssh/id_rsa 2>/dev/null
+fi
+
 last_semicolon=$(echo "${PROMPT_COMMAND}" | awk '{print substr($0,length,1)}')
 
 if [[ "$last_semicolon" != ";" ]]

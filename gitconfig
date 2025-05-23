@@ -8,9 +8,17 @@
 [core]
 	editor = nvim
 	quotepath = off
+	pager = delta
 [init]
 	defaultBranch = main
 [http]
 	sslVerify = true
 [pull]
 	ff = only
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+[merge]
+	conflictStyle = zdiff3
