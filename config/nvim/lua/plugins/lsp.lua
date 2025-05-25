@@ -140,7 +140,11 @@ return {
 			-- Enable the following language servers
 			local servers = {
 				clangd = {
-					-- cmd = { "clangd", "--log=verbose" },
+					cmd = {
+						"clangd",
+						-- "--log=verbose",
+						"--experimental-modules-support",
+					},
 				},
 				-- gopls = {},
 				pyright = {},
