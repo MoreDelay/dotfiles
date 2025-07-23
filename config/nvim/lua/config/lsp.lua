@@ -42,4 +42,7 @@ vim.lsp.enable("bashls")
 vim.lsp.enable("glsl_analyzer")
 vim.lsp.enable("wgsl_analyzer")
 
+-- Diagnostics
+vim.diagnostic.config({ virtual_text = true, virtual_lines = { current_line = true } })
+
 -- vim: ts=2 sts=2 sw=2 et
