@@ -14,5 +14,16 @@
     "light": "One Light",
     "dark": "One Dark"
   },
-  "vim_mode": true
+  "vim_mode": true,
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "hover": {
+          "memoryLayout": {
+            "niches": true
+          }
+        }
+      }
+    }
+  }
 }
