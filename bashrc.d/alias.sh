@@ -1,6 +1,6 @@
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
+alias l='ls -F'
 alias fd='/usr/bin/fd -L'
 alias fdh='/usr/bin/fd -H'
 
