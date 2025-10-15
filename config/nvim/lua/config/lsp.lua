@@ -45,6 +45,7 @@ vim.lsp.enable("lua_ls")
 vim.lsp.enable("bashls")
 vim.lsp.enable("glsl_analyzer")
 vim.lsp.enable("wgsl_analyzer")
+vim.lsp.enable("tinymist")
 
 -- Diagnostics
 vim.diagnostic.config({ virtual_text = true })
