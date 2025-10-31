@@ -20,6 +20,7 @@ return {
 					"rust",
 					"cpp",
 					"glsl",
+					"wgsl",
 				},
 				-- Autoinstall languages that are not installed
 				auto_install = true,
@@ -97,6 +98,9 @@ return {
 					},
 				},
 			}
+
+			-- use wgsl syntax highlighting for wesl files
+			vim.treesitter.language.register("wgsl", "wesl")
 
 			require("nvim-treesitter.configs").setup(opts)
 

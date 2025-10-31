@@ -42,9 +42,14 @@ vim.lsp.config("lua_ls", {
 })
 vim.lsp.enable("lua_ls")
 
+-- wgsl_analyzer wants to support wesl at some point, but does not at the moment
+-- vim.lsp.config("wgsl_analyzer", {
+-- 	filetypes = { "wgsl", "wesl" },
+-- })
+vim.lsp.enable("wgsl_analyzer")
+
 vim.lsp.enable("bashls")
 vim.lsp.enable("glsl_analyzer")
-vim.lsp.enable("wgsl_analyzer")
 vim.lsp.enable("tinymist")
 
 -- Diagnostics
