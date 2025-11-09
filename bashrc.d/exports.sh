@@ -16,14 +16,11 @@ case ":$PATH:" in
 		;;
 esac
 
-# set PATH so it includes user's private cargo bin if it exists
-case ":$PATH:" in
-	*:"$HOME/.cargo/bin":*)
-		;;
-	*)
-		PATH="$HOME/.cargo/bin:$PATH"
-		;;
-esac
+# make sure cargo installed binaries are accessible
+if [ -e $HOME/.cargo/env ]; then
+	source $HOME/.cargo/env
+fi
+
 
 export PATH
 
@@ -44,9 +41,4 @@ unset QT_IM_MODULE
 eval "$(fzf --bash)"
 # make fzf use fd
 export FZF_DEFAULT_COMMAND="fd --type file --follow"
-
-# setup vulkan sdk
-if [ -e $HOME/clones/vulkan/1.3.290.0/setup-env.sh ]; then
-	source $HOME/hdd/clones/vulkan/1.3.290.0/setup-env.sh
-fi
 
