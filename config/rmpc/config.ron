@@ -7,9 +7,9 @@
     theme: Some("adapted"),
     cache_dir: None,
     on_song_change: None,
-    volume_step: 5,
+    volume_step: 2,
     max_fps: 30,
-    scrolloff: 0,
+    scrolloff: 4,
     wrap_navigation: false,
     enable_mouse: true,
     enable_config_hot_reload: true,
@@ -21,6 +21,7 @@
     ignore_leading_the: false,
     browser_song_sort: [Disc, Track, Artist, Title],
     directories_sort: SortFormat(group_by_type: true, reverse: false),
+    lyrics_dir: Some("~/Music/lyrics"),
     album_art: (
         // method: Auto,
         method: Iterm2,
@@ -31,10 +32,10 @@
     ),
     keybinds: (
         global: {
+            "q":       Quit,
             ":":       CommandMode,
-            ",":       VolumeDown,
-            "s":       Stop,
-            ".":       VolumeUp,
+            "<Left>":  VolumeDown,
+            "<Right>": VolumeUp,
             "<Tab>":   NextTab,
             "<S-Tab>": PreviousTab,
             "1":       SwitchToTab("Queue"),
@@ -44,17 +45,17 @@
             "5":       SwitchToTab("Albums"),
             "6":       SwitchToTab("Playlists"),
             "7":       SwitchToTab("Search"),
-            "q":       Quit,
-            ">":       NextTrack,
+            "s":       Stop,
             "p":       TogglePause,
-            "<":       PreviousTrack,
+            "<":       NextTrack,
+            ">":       PreviousTrack,
             "f":       SeekForward,
             "z":       ToggleRepeat,
             "x":       ToggleRandom,
             "c":       ToggleConsume,
             "v":       ToggleSingle,
             "b":       SeekBack,
-            "~":       ShowHelp,
+            "?":       ShowHelp,
             "u":       Update,
             "U":       Rescan,
             "I":       ShowCurrentSongInfo,
@@ -69,8 +70,6 @@
             "l":         Right,
             "<Up>":      Up,
             "<Down>":    Down,
-            "<Left>":    Left,
-            "<Right>":   Right,
             "<C-k>":     PaneUp,
             "<C-j>":     PaneDown,
             "<C-h>":     PaneLeft,
@@ -102,9 +101,9 @@
             "D":       DeleteAll,
             "<CR>":    Play,
             "a":       AddToPlaylist,
-            "d":       Delete,
+            "<Del>":   Delete,
             "o":       JumpToCurrent,
-            "X":       Shuffle,
+            // "X":       Shuffle,
         },
     ),
     search: (
@@ -139,12 +138,12 @@
                             direction: Horizontal,
                             panes: [
                                 (
-                                    size: "3",
-                                    pane: Pane(Lyrics)
-                                ),
-                                (
                                     size: "100%",
                                     pane: Pane(AlbumArt)
+                                ),
+                                (
+                                    size: "50%",
+                                    pane: Pane(Lyrics)
                                 ),
                             ],
                         ),
