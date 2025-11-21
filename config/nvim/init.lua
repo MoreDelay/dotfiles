@@ -9,6 +9,9 @@ vim.g.maplocalleader = " "
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
 
+-- my own globals used in plugin configs
+vim.g.rust_nightly_fmt = false
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 --  For more options see `:help option-list`

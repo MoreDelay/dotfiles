@@ -80,10 +80,33 @@ return {
 				mode = "",
 				desc = "[F]ormat buffer",
 			},
+			{
+				"<leader>cft",
+				function()
+					vim.g.disable_autoformat = not vim.g.disable_autoformat
+					local msg = "Autoformat: " .. (vim.g.disable_autoformat and "disabled" or "enabled")
+					vim.api.nvim_echo({ { msg, "ModeMsg" } }, false, {})
+				end,
+				mode = "",
+				desc = "[C]ode [F]ormat [T]oggle on save",
+			},
+			{
+				"<leader>cfr",
+				function()
+					vim.g.rust_nightly_fmt = not vim.g.rust_nightly_fmt
+					local msg = "Rustfmt: " .. (vim.g.rust_nightly_fmt and "nightly" or "stable")
+					vim.api.nvim_echo({ { msg, "ModeMsg" } }, false, {})
+				end,
+				mode = "",
+				desc = "[C]ode [F]ormat [R]ust Nightly",
+			},
 		},
 		opts = {
 			notify_on_error = false,
 			format_on_save = function(bufnr)
+				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+					return
+				end
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
@@ -101,7 +124,14 @@ return {
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
-				rust = { "rustfmt" },
+				-- rust = { "rustfmt" },
+				rust = function()
+					if vim.g.rust_nightly_fmt then
+						return { "rustfmt_nightly" }
+					else
+						return { "rustfmt" }
+					end
+				end,
 				cpp = { "clang-format" },
 				typst = { "typstyle" },
 				-- Conform can also run multiple formatters sequentially
@@ -109,6 +139,13 @@ return {
 				--
 				-- You can use 'stop_after_first' to run the first available from the list
 				-- javascript = { { "prettierd", "prettier", stop_after_first = true } },
+			},
+			formatters = {
+				rustfmt_nightly = {
+					command = "rustfmt",
+					args = { "+nightly" },
+					stdin = true,
+				},
 			},
 		},
 	},
