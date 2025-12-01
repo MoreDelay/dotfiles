@@ -13,6 +13,7 @@
     wrap_navigation: false,
     enable_mouse: true,
     enable_config_hot_reload: true,
+    enable_lyrics_hot_reload: true,
     status_update_interval_ms: 100,
     rewind_to_start_sec: None,
     keep_state_on_song_change: true,
@@ -23,8 +24,7 @@
     directories_sort: SortFormat(group_by_type: true, reverse: false),
     lyrics_dir: Some("~/Music/lyrics"),
     album_art: (
-        // method: Auto,
-        method: Iterm2,
+        method: Auto,
         max_size_px: (width: 1200, height: 1200),
         disabled_protocols: ["http://", "https://"],
         vertical_align: Center,
