@@ -25,7 +25,7 @@ fi
 export PATH
 
 # environment variables
-export MPD_HOST=$HOME/.mpd/socket
+export MPD_HOST=$HOME/.local/state/mpd/socket
 # LIBVA_DRIVER_NAME=vdpau
 export GTK_USE_PORTAL=1
 export EDITOR=nvim
