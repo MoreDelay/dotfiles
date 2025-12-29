@@ -51,6 +51,7 @@ vim.lsp.enable("wgsl_analyzer")
 vim.lsp.enable("bashls")
 vim.lsp.enable("glsl_analyzer")
 vim.lsp.enable("tinymist")
+vim.lsp.enable("ty")
 
 -- Diagnostics
 vim.diagnostic.config({ virtual_text = true })
