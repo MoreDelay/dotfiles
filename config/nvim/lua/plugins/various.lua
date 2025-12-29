@@ -24,6 +24,13 @@ return {
 				topdelete = { text = "‾" },
 				changedelete = { text = "~" },
 			},
+			on_attach = function(bufnr)
+				local gitsigns = require("gitsigns")
+				local map = function(mode, keys, func, desc)
+					vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
+				end
+				map("n", "<leader>gb", gitsigns.blame, "[G]it [B]lame")
+			end,
 		},
 	},
 
