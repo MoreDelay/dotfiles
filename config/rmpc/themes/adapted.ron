@@ -55,27 +55,33 @@
     song_table_format: [
         (
             prop: (kind: Property(Artist),
-                default: (kind: Text("Unknown"))
+                style: (fg: "yellow", modifiers: "Bold"),
+                default: (
+                    kind: Text("Unknown"),
+                    style: (fg: "white")
+                ),
             ),
-            width: "20%",
+            width: "30%",
         ),
         (
             prop: (kind: Property(Title),
                 default: (kind: Text("Unknown"))
             ),
-            width: "35%",
+            width: "50%",
         ),
         (
-            prop: (kind: Property(Album), style: (fg: "white"),
-                default: (kind: Text("Unknown Album"), style: (fg: "white"))
+            prop: (kind: Property(Album),
+                style: (fg: "magenta"),
+                default: (kind: Text("None"), style: (fg: "dark_gray")),
             ),
-            width: "30%",
+            width: "20%",
         ),
         (
             prop: (kind: Property(Duration),
-                default: (kind: Text("-"))
+                style: (fg: "blue"),
+                default: (kind: Text("-"), style: (fg: "blue"))
             ),
-            width: "15%",
+            width: "10",
             alignment: Right,
         ),
     ],
