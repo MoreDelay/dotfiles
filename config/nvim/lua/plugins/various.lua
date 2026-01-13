@@ -4,17 +4,11 @@ return {
 	"tpope/vim-sleuth",
 
 	-- Use `opts = {}` to force a plugin to be loaded.
-	--  This is equivalent to:
-	--    require('Comment').setup({})
 	-- "gc" to comment visual regions/lines
 	{ "numToStr/Comment.nvim", opts = {} },
 
-	-- Here is a more advanced example where we pass configuration
-	-- options to `gitsigns.nvim`. This is equivalent to the following Lua:
-	--    require('gitsigns').setup({ ... })
-	--
-	-- See `:help gitsigns` to understand what the configuration keys do
-	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
+	-- Adds git related signs to the gutter, as well as utilities for managing changes
+	{
 		"lewis6991/gitsigns.nvim",
 		opts = {
 			signs = {
@@ -24,32 +18,36 @@ return {
 				topdelete = { text = "‾" },
 				changedelete = { text = "~" },
 			},
-			on_attach = function(bufnr)
+			on_attach = function()
 				local gitsigns = require("gitsigns")
-				local map = function(mode, keys, func, desc)
-					vim.keymap.set(mode, keys, func, { buffer = bufnr, desc = desc })
-				end
-				map("n", "<leader>gb", gitsigns.blame, "[G]it [B]lame")
+
+				vim.keymap.set("n", "<leader>gl", gitsigns.blame, { desc = "[G]it B[L]ame" })
+
+				-- working with hunks
+				vim.keymap.set("n", "]h", function()
+					gitsigns.nav_hunk("next")
+				end, { desc = "Next Git hunk" })
+
+				vim.keymap.set("n", "[h", function()
+					gitsigns.nav_hunk("prev")
+				end, { desc = "Previous Git hunk" })
+
+				vim.keymap.set("n", "<leader>hq", function()
+					gitsigns.setqflist(0, { open = false })
+				end, { desc = "[H]unk [Q]uicklist (current file)" })
+
+				vim.keymap.set("n", "<leader>hQ", function()
+					gitsigns.setqflist("all", { open = false })
+				end, { desc = "[H]unk [Q]uicklist (all files)" })
+
+				vim.keymap.set("n", "<leader>hs", gitsigns.stage_hunk, { desc = "[H]unk [S]tage (toggle)" })
+				vim.keymap.set("n", "<leader>hr", gitsigns.reset_hunk, { desc = "[H]unk [R]eset" })
 			end,
 		},
 	},
 
-	-- NOTE: Plugins can also be configured to run Lua code when they are loaded.
-	--
-	-- This is often very useful to both group configuration, as well as handle
-	-- lazy loading plugins that don't need to be loaded immediately at startup.
-	--
-	-- For example, in the following configuration, we use:
-	--  event = 'VimEnter'
-	--
-	-- which loads which-key before all the UI elements are loaded. Events can be
-	-- normal autocommands events (`:help autocmd-events`).
-	--
-	-- Then, because we use the `config` key, the configuration only runs
-	-- after the plugin has been loaded:
-	--  config = function() ... end
-
-	{ -- Useful plugin to show you pending keybinds.
+	-- Useful plugin to show you pending keybinds.
+	{
 		"folke/which-key.nvim",
 		event = "VimEnter", -- Sets the loading event to 'VimEnter'
 		config = function() -- This is the function that runs, AFTER loading
@@ -59,102 +57,15 @@ return {
 			require("which-key").add({
 				{ "<leader>b", group = "De[B]ug" },
 				{ "<leader>c", group = "[C]ode", mode = { "n", "x" } },
+				{ "<leader>cf", group = "[C]ode [F]ormat" },
 				{ "<leader>d", group = "[D]ocument" },
+				{ "<leader>g", group = "[G]it" },
+				{ "<leader>h", group = "[H]unk" },
 				{ "<leader>r", group = "[R]ename" },
 				{ "<leader>s", group = "[S]earch" },
 				{ "<leader>w", group = "[W]orkspace" },
 			})
 		end,
-	},
-
-	-- NOTE: Plugins can specify dependencies.
-	--
-	-- The dependencies are proper plugin specifications as well - anything
-	-- you do for a plugin at the top level, you can do for a dependency.
-	--
-	-- Use the `dependencies` key to specify the dependencies of a particular plugin
-
-	{ -- Autoformat
-		"stevearc/conform.nvim",
-		event = { "BufWritePre" },
-		cmd = { "ConformInfo" },
-		keys = {
-			{
-				"<leader>f",
-				function()
-					require("conform").format({ async = true, lsp_format = "fallback" })
-				end,
-				mode = "",
-				desc = "[F]ormat buffer",
-			},
-			{
-				"<leader>cft",
-				function()
-					vim.g.disable_autoformat = not vim.g.disable_autoformat
-					local msg = "Autoformat: " .. (vim.g.disable_autoformat and "disabled" or "enabled")
-					vim.api.nvim_echo({ { msg, "ModeMsg" } }, false, {})
-				end,
-				mode = "",
-				desc = "[C]ode [F]ormat [T]oggle on save",
-			},
-			{
-				"<leader>cfr",
-				function()
-					vim.g.rust_nightly_fmt = not vim.g.rust_nightly_fmt
-					local msg = "Rustfmt: " .. (vim.g.rust_nightly_fmt and "nightly" or "stable")
-					vim.api.nvim_echo({ { msg, "ModeMsg" } }, false, {})
-				end,
-				mode = "",
-				desc = "[C]ode [F]ormat [R]ust Nightly",
-			},
-		},
-		opts = {
-			notify_on_error = false,
-			format_on_save = function(bufnr)
-				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-					return
-				end
-				-- Disable "format_on_save lsp_fallback" for languages that don't
-				-- have a well standardized coding style. You can add additional
-				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = false }
-				local lsp_format_opt
-				if disable_filetypes[vim.bo[bufnr].filetype] then
-					lsp_format_opt = "never"
-				else
-					lsp_format_opt = "fallback"
-				end
-				return {
-					timeout_ms = 500,
-					lsp_fallback = lsp_format_opt,
-				}
-			end,
-			formatters_by_ft = {
-				lua = { "stylua" },
-				-- rust = { "rustfmt" },
-				rust = function()
-					if vim.g.rust_nightly_fmt then
-						return { "rustfmt_nightly" }
-					else
-						return { "rustfmt" }
-					end
-				end,
-				cpp = { "clang-format" },
-				typst = { "typstyle" },
-				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
-				--
-				-- You can use 'stop_after_first' to run the first available from the list
-				-- javascript = { { "prettierd", "prettier", stop_after_first = true } },
-			},
-			formatters = {
-				rustfmt_nightly = {
-					command = "rustfmt",
-					args = { "+nightly" },
-					stdin = true,
-				},
-			},
-		},
 	},
 
 	-- Highlight todo, notes, etc in comments
@@ -185,9 +96,9 @@ return {
 			-- Add/delete/replace surroundings (brackets, quotes, etc.)
 			-- see :h MiniSurround.config
 			--
-			-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-			-- - sd'   - [S]urround [D]elete [']quotes
-			-- - sr)'  - [S]urround [R]eplace [)] [']
+			-- - gsaiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
+			-- - gsd'   - [S]urround [D]elete [']quotes
+			-- - gsr)'  - [S]urround [R]eplace [)] [']
 			require("mini.surround").setup({
 				mappings = {
 					add = "gsa",
@@ -251,6 +162,16 @@ return {
 		opts = {
 			scope = { show_start = false, show_end = false },
 		},
+	},
+
+	-- make all "[#" and "]#" commands repeatable with ";" and ","
+	{
+		"mawkler/demicolon.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
+		opts = {},
 	},
 }
 -- vim: ts=2 sts=2 sw=2 et

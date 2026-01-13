@@ -5,9 +5,12 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		-- or if using mini.icons/mini.nvim
 		-- dependencies = { "echasnovski/mini.icons" },
-		opts = {},
-		config = function()
+		config = function(_, opts)
 			local fzf = require("fzf-lua")
+			fzf.setup(opts)
+
+			fzf.register_ui_select()
+
 			vim.keymap.set("n", "<leader>sh", fzf.help_tags, { desc = "[S]earch [H]elp" })
 			vim.keymap.set("n", "<leader>sk", fzf.keymaps, { desc = "[S]earch [K]eymaps" })
 			vim.keymap.set("n", "<leader>sf", fzf.files, { desc = "[S]earch [F]iles" })
@@ -18,6 +21,9 @@ return {
 			vim.keymap.set("n", "<leader>sr", fzf.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", fzf.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 			vim.keymap.set("n", "<leader><leader>", fzf.buffers, { desc = "[ ] Find existing buffers" })
+			vim.keymap.set("n", "<leader>cu", fzf.undotree, { desc = "[C]ode [U]ndo-Tree" })
+
+			vim.keymap.set("n", "<leader>gb", fzf.git_branches, { desc = "[G]it [B]ranch" })
 
 			vim.keymap.set("n", "<leader>/", fzf.lgrep_curbuf, { desc = "[/] Fuzzily search in current buffer" })
 			vim.keymap.set("n", "<leader>sn", function()

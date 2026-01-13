@@ -9,13 +9,6 @@ vim.g.maplocalleader = " "
 -- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
 
--- my own globals used in plugin configs
-vim.g.rust_nightly_fmt = false
-
--- [[ Setting options ]]
--- See `:help vim.opt`
---  For more options see `:help option-list`
-
 -- Show absolute on current line and relative line numbers on all others
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -25,11 +18,6 @@ vim.opt.mouse = "a"
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
--- vim.opt.clipboard = "unnamedplus"
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -56,8 +44,6 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
@@ -86,9 +72,6 @@ vim.filetype.add({
 	},
 })
 
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
-
 -- easier line movement without entering insert mode
 vim.keymap.set({ "n", "v" }, "gh", "0")
 vim.keymap.set("n", "gl", "$")
@@ -98,8 +81,13 @@ vim.keymap.set("v", "gl", "$h")
 vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Diagnostic keymaps
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+-- Quickfix keymaps
+local function toggle_qf()
+	local qf_winid = vim.fn.getqflist({ winid = 0 }).winid
+	local action = qf_winid > 0 and "cclose" or "copen"
+	vim.cmd(action)
+end
+vim.keymap.set("n", "<leader>q", toggle_qf, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -110,7 +98,6 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 --  Use CTRL+<hjkl> to switch between windows
---
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
@@ -122,7 +109,6 @@ vim.keymap.set("n", "<C-n>", ":cnext<CR>", { desc = "Go to next in quickfix list
 vim.keymap.set("n", "<C-m>", ":cprev<CR>", { desc = "Go to previous in quickfix list" })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"

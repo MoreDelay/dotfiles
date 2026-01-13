@@ -11,12 +11,12 @@ return {
 				desc = "Trouble: toggle panel",
 			},
 			{
-				"<leader>]t",
+				"]t",
 				"<cmd>Trouble diagnostics next<cr>",
 				desc = "Trouble: next trouble",
 			},
 			{
-				"<leader>[t",
+				"[t",
 				"<cmd>Trouble diagnostics prev<cr>",
 				desc = "Trouble: previous trouble",
 			},
