@@ -5,6 +5,15 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		-- or if using mini.icons/mini.nvim
 		-- dependencies = { "echasnovski/mini.icons" },
+		opts = {
+			"default",
+			keymap = {
+				fzf = {
+					true,
+					["ctrl-q"] = "select-all+accept", -- send all entries to quickfix list
+				},
+			},
+		},
 		config = function(_, opts)
 			local fzf = require("fzf-lua")
 			fzf.setup(opts)

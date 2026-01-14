@@ -42,6 +42,18 @@ return {
 
 				vim.keymap.set("n", "<leader>hs", gitsigns.stage_hunk, { desc = "[H]unk [S]tage (toggle)" })
 				vim.keymap.set("n", "<leader>hr", gitsigns.reset_hunk, { desc = "[H]unk [R]eset" })
+
+				vim.keymap.set("v", "<leader>hs", function()
+					gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				end, { desc = "[H]unk [S]tage (toggle)" })
+
+				vim.keymap.set("v", "<leader>hr", function()
+					gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+				end, { desc = "[H]unk [R]eset" })
+
+				vim.keymap.set("n", "<leader>hb", function()
+					gitsigns.blame_line({ full = true })
+				end, { desc = "[H]unk [B]lame" })
 			end,
 		},
 	},
@@ -172,6 +184,16 @@ return {
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
 		opts = {},
+	},
+
+	-- make quickfix list more versatile
+	{
+		"stevearc/quicker.nvim",
+		ft = "qf",
+		opts = {
+			follow = { enabled = true },
+			highlight = { load_buffers = true },
+		},
 	},
 }
 -- vim: ts=2 sts=2 sw=2 et
