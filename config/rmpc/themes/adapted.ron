@@ -91,7 +91,7 @@
         panes: [
             (
                 pane: Pane(Header),
-                size: "2",
+                size: "4",
             ),
             (
                 pane: Pane(Tabs),
@@ -138,10 +138,6 @@
                     (kind: Property(Song(Artist)), style: (fg: "yellow", modifiers: "Bold"),
                         default: (kind: Text("Unknown"), style: (fg: "yellow", modifiers: "Bold"))
                     ),
-                    // (kind: Text(" - ")),
-                    // (kind: Property(Song(Album)),
-                    //     default: (kind: Text("Unknown Album"))
-                    // )
                 ],
                 right: [
                     (
@@ -152,6 +148,22 @@
                         style: (fg: "dark_gray")
                     ),
                 ]
+            ),
+            (
+                left: [],
+                center: [],
+                right: []
+            ),
+            (
+                left: [],
+                center: [
+                    (kind: Text("Current Playlist: "), style: (fg: "blue")),
+                    (kind: Property(Status(QueueLength()))),
+                    (kind: Text(" Items ("), style: (fg: "blue")),
+                    (kind: Property(Status(QueueTimeTotal(separator: " ")))),
+                    (kind: Text(")"), style: (fg: "blue")),
+                ],
+                right: []
             ),
         ],
     ),
