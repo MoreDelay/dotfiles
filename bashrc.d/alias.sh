@@ -13,7 +13,7 @@ exists() {
 }
 
 if exists "eza"; then
-    alias ls='eza'
+    alias ls='eza -H'
 fi
 
 if exists "bat"; then
