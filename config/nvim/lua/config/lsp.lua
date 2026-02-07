@@ -13,6 +13,9 @@ vim.lsp.config("rust_analyzer", {
 				features = "all",
 				allTargets = true,
 			},
+			check = {
+				command = "clippy",
+			},
 		},
 	},
 })
