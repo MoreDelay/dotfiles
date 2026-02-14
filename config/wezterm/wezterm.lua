@@ -8,6 +8,8 @@ config.font = wezterm.font_with_fallback({
 	{ family = "Noto Sans CJK JP" },
 })
 config.font_size = 10
+-- make Nerd Font ligatures render correctly, check with "|-"
+config.freetype_load_flags = "NO_HINTING"
 
 config.initial_rows = 59
 config.initial_cols = 110
