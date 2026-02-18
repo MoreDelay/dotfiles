@@ -42,10 +42,9 @@
             "1":       SwitchToTab("Queue"),
             "2":       SwitchToTab("Directories"),
             "3":       SwitchToTab("Artists"),
-            "4":       SwitchToTab("Album Artists"),
-            "5":       SwitchToTab("Albums"),
-            "6":       SwitchToTab("Playlists"),
-            "7":       SwitchToTab("Search"),
+            "4":       SwitchToTab("Albums"),
+            "5":       SwitchToTab("Playlists"),
+            "6":       SwitchToTab("Search"),
             "s":       Stop,
             "p":       TogglePause,
             "<":       NextTrack,
@@ -150,6 +149,11 @@
                         ),
                     ), 
                     (
+                        size: "2",
+                        borders: "TOP",
+                        pane: Pane(QueueHeader())
+                    ),
+                    (
                         size: "70%",
                         pane: Pane(Queue)
                     ),
@@ -163,10 +167,6 @@
         (
             name: "Artists",
             pane: Pane(Artists),
-        ),
-        (
-            name: "Album Artists",
-            pane: Pane(AlbumArtists),
         ),
         (
             name: "Albums",

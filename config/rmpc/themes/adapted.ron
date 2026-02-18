@@ -3,7 +3,6 @@
 #![enable(unwrap_variant_newtypes)]
 (
     default_album_art_path: None,
-    show_song_table_header: true,
     draw_borders: true,
     format_tag_separator: " | ",
     browser_column_widths: [20, 38, 42],
@@ -61,12 +60,14 @@
                     style: (fg: "white")
                 ),
             ),
+            label_prop: (kind: Text("Artist")),
             width: "30%",
         ),
         (
             prop: (kind: Property(Title),
                 default: (kind: Text("Unknown"))
             ),
+            label_prop: (kind: Text("Title")),
             width: "50%",
         ),
         (
@@ -74,6 +75,7 @@
                 style: (fg: "magenta"),
                 default: (kind: Text("None"), style: (fg: "dark_gray")),
             ),
+            label_prop: (kind: Text("Album")),
             width: "20%",
         ),
         (
@@ -81,89 +83,156 @@
                 style: (fg: "blue"),
                 default: (kind: Text("-"), style: (fg: "blue"))
             ),
+            label_prop: (kind: Text("Duration")),
             width: "10",
             alignment: Right,
         ),
     ],
-    components: {},
+    components: {
+        "header_play_state": Pane(Property(
+            content: [
+                (kind: Text("["), style: (fg: "yellow", modifiers: "Bold")),
+                (kind: Property(Status(
+                    StateV2(
+                        playing_label: "Playing",
+                        paused_label: "Paused",
+                        stopped_label: "Stopped"
+                    ))),
+                    style: (fg: "yellow", modifiers: "Bold")),
+                (kind: Text("]"), style: (fg: "yellow", modifiers: "Bold"))
+            ],
+            align: Left,
+        )),
+        "header_song_progress": Pane(Property(
+            content: [
+                (kind: Property(Status(Elapsed))),
+                (kind: Text(" / ")),
+                (kind: Property(Status(Duration))),
+                (kind: Text(" (")),
+                (kind: Property(Status(Bitrate))),
+                (kind: Text(" kbps)"))
+            ],
+            align: Left,
+        )),
+        "header_left": Split(
+            direction: Vertical,
+            panes: [
+                (size: "1", pane: Component("header_play_state")),
+                (size: "1", pane: Component("header_song_progress")),
+            ],
+        ),
+        "header_title": Pane(Property(
+            content: [
+                (
+                    kind: Property(Song(Title)),
+                    style: (modifiers: "Bold"),
+                    default: (
+                        kind: Text("No Song"),
+                        style: (modifiers: "Bold")
+                    )
+                )
+            ],
+            align: Center,
+        )),
+        "header_artist": Pane(Property(
+            content: [
+                (
+                    kind: Property(Song(Artist)),
+                    style: (fg: "yellow", modifiers: "Bold"),
+                    default: (kind: Text("Unknown"), style: (fg: "yellow", modifiers: "Bold"))
+                ),
+            ],
+            align: Center,
+        )),
+        "header_center": Split(
+            direction: Vertical,
+            panes: [
+                (size: "1", pane: Component("header_title")),
+                (size: "1", pane: Component("header_artist")),
+            ],
+        ),
+        "header_volume": Pane(Property(
+            content: [
+                (kind: Property(Widget(ScanStatus)), style: (fg: "blue")),
+                (kind: Property(Widget(Volume)), style: (fg: "blue"))
+            ],
+            align: Right,
+        )),
+        "header_states": Pane(Property(
+            content: [
+                (
+                    kind: Property(Widget(
+                        States(
+                            active_style: (fg: "white", modifiers: "Bold"),
+                            separator_style: (fg: "white")
+                        )
+                    )),
+                    style: (fg: "dark_gray")
+                ),
+            ],
+            align: Center,
+        )),
+        "header_right": Split(
+            direction: Vertical,
+            panes: [
+                (size: "1", pane: Component("header_volume")),
+                (size: "1", pane: Component("header_states")),
+            ],
+            align: Right,
+        ),
+        "header_playlist": Pane(Property(
+            content: [
+                (kind: Text("Current Playlist: "), style: (fg: "blue")),
+                (kind: Property(Status(QueueLength()))),
+                (kind: Text(" Items ("), style: (fg: "blue")),
+                (kind: Property(Status(QueueTimeTotal(separator: " ")))),
+                (kind: Text(")"), style: (fg: "blue")),
+            ],
+            align: Center,
+        )),
+    },
     layout: Split(
         direction: Vertical,
         panes: [
             (
-                pane: Pane(Header),
-                size: "4",
-            ),
-            (
-                pane: Pane(Tabs),
-                size: "3",
-            ),
-            (
-                pane: Pane(TabContent),
-                size: "100%",
-            ),
-            (
-                pane: Pane(ProgressBar),
-                size: "1",
-            ),
-        ],
-    ),
-    header: (
-        rows: [
-            (
-                left: [
-                    (kind: Text("["), style: (fg: "yellow", modifiers: "Bold")),
-                    (kind: Property(Status(StateV2(playing_label: "Playing", paused_label: "Paused", stopped_label: "Stopped"))), style: (fg: "yellow", modifiers: "Bold")),
-                    (kind: Text("]"), style: (fg: "yellow", modifiers: "Bold"))
-                ],
-                center: [
-                    (kind: Property(Song(Title)), style: (modifiers: "Bold"),
-                        default: (kind: Text("No Song"), style: (modifiers: "Bold"))
-                    )
-                ],
-                right: [
-                    (kind: Property(Widget(ScanStatus)), style: (fg: "blue")),
-                    (kind: Property(Widget(Volume)), style: (fg: "blue"))
-                ]
-            ),
-            (
-                left: [
-                    (kind: Property(Status(Elapsed))),
-                    (kind: Text(" / ")),
-                    (kind: Property(Status(Duration))),
-                    (kind: Text(" (")),
-                    (kind: Property(Status(Bitrate))),
-                    (kind: Text(" kbps)"))
-                ],
-                center: [
-                    (kind: Property(Song(Artist)), style: (fg: "yellow", modifiers: "Bold"),
-                        default: (kind: Text("Unknown"), style: (fg: "yellow", modifiers: "Bold"))
-                    ),
-                ],
-                right: [
-                    (
-                        kind: Property(Widget(States(
-                            active_style: (fg: "white", modifiers: "Bold"),
-                            separator_style: (fg: "white")))
+                size: "2",
+                pane: Split(
+                    direction: Horizontal,
+                    panes: [
+                        (
+                            size: "34",
+                            pane: Component("header_left"),
                         ),
-                        style: (fg: "dark_gray")
-                    ),
-                ]
+                        (
+                            size: "100%",
+                            pane: Component("header_center"),
+                        ),
+                        (
+                            size: "34",
+                            pane: Component("header_right"),
+                        )
+                    ],
+                ),
             ),
             (
-                left: [],
-                center: [],
-                right: []
+                size: "3",
+                borders: "ALL",
+                border_symbols: Inherited(parent: Rounded, bottom_left: "├", bottom_right: "┤"),
+                pane: Component("header_playlist"),
             ),
             (
-                left: [],
-                center: [
-                    (kind: Text("Current Playlist: "), style: (fg: "blue")),
-                    (kind: Property(Status(QueueLength()))),
-                    (kind: Text(" Items ("), style: (fg: "blue")),
-                    (kind: Property(Status(QueueTimeTotal(separator: " ")))),
-                    (kind: Text(")"), style: (fg: "blue")),
-                ],
-                right: []
+                size: "2",
+                borders: "RIGHT | BOTTOM | LEFT",
+                border_symbols: Inherited(parent: Rounded),
+                pane: Pane(Tabs),
+            ),
+            (
+                size: "100%",
+                pane: Pane(TabContent),
+            ),
+            (
+                size: "1",
+                pane: Pane(ProgressBar),
             ),
         ],
     ),
@@ -187,3 +256,4 @@
         timestamp: false
     )
 )
+
