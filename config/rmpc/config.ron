@@ -32,6 +32,7 @@
         horizontal_align: Center,
     ),
     keybinds: (
+        clear: true,
         global: {
             "q":       Quit,
             ":":       CommandMode,
@@ -98,12 +99,11 @@
             "<C-s>":     Save(kind: Modal(all: false, duplicates_strategy: Ask)),
         },
         queue: {
-            "D":       DeleteAll,
-            "<CR>":    Play,
-            "a":       AddToPlaylist,
-            "<Del>":   Delete,
-            "o":       JumpToCurrent,
-            // "X":       Shuffle,
+            "D":     DeleteAll,
+            "<CR>":  Play,
+            "a":     AddToPlaylist,
+            "<Del>": Delete,
+            "o":     JumpToCurrent,
         },
     ),
     search: (
