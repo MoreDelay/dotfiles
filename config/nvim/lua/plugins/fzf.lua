@@ -6,7 +6,8 @@ return {
 		-- or if using mini.icons/mini.nvim
 		-- dependencies = { "echasnovski/mini.icons" },
 		opts = {
-			"default",
+			-- "default",
+			"skim",
 			keymap = {
 				fzf = {
 					true,
