@@ -108,9 +108,6 @@
                 (kind: Property(Status(Elapsed))),
                 (kind: Text(" / ")),
                 (kind: Property(Status(Duration))),
-                (kind: Text(" (")),
-                (kind: Property(Status(Bitrate))),
-                (kind: Text(" kbps)"))
             ],
             align: Left,
         )),
@@ -160,17 +157,43 @@
         )),
         "header_states": Pane(Property(
             content: [
-                (
-                    kind: Property(Widget(
-                        States(
-                            active_style: (fg: "white", modifiers: "Bold"),
-                            separator_style: (fg: "white")
-                        )
-                    )),
-                    style: (fg: "dark_gray")
-                ),
+                (kind: Text("(")),
+                (kind: Property(Status(Bitrate))),
+                (kind: Text(" kbps)  ")),
+                (kind: Text("[")),
+                (kind: Property(Status(
+                    RepeatV2(
+                        on_label: "z",
+                        off_label: ".",
+                        off_style: (fg: "dark_gray"),
+                    )
+                ))),
+                (kind: Property(Status(
+                    RandomV2(
+                        on_label: "x",
+                        off_label: ".",
+                        off_style: (fg: "dark_gray"),
+                    )
+                ))),
+                (kind: Property(Status(
+                    ConsumeV2(
+                        oneshot_label: "C",
+                        on_label: "c",
+                        off_label: ".",
+                        off_style: (fg: "dark_gray"),
+                    )
+                ))),
+                (kind: Property(Status(
+                    SingleV2(
+                        oneshot_label: "V",
+                        on_label: "v",
+                        off_label: ".",
+                        off_style: (fg: "dark_gray"),
+                    )
+                ))),
+                (kind: Text("]")),
             ],
-            align: Center,
+            align: Right,
         )),
         "header_right": Split(
             direction: Vertical,
@@ -200,15 +223,15 @@
                     direction: Horizontal,
                     panes: [
                         (
-                            size: "34",
+                            size: "25%",
                             pane: Component("header_left"),
                         ),
                         (
-                            size: "100%",
+                            size: "50%",
                             pane: Component("header_center"),
                         ),
                         (
-                            size: "34",
+                            size: "25%",
                             pane: Component("header_right"),
                         )
                     ],

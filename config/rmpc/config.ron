@@ -41,11 +41,12 @@
             "<Tab>":   NextTab,
             "<S-Tab>": PreviousTab,
             "1":       SwitchToTab("Queue"),
-            "2":       SwitchToTab("Directories"),
-            "3":       SwitchToTab("Artists"),
-            "4":       SwitchToTab("Albums"),
-            "5":       SwitchToTab("Playlists"),
-            "6":       SwitchToTab("Search"),
+            "2":       SwitchToTab("Lyrics"),
+            "3":       SwitchToTab("Directories"),
+            "4":       SwitchToTab("Artists"),
+            "5":       SwitchToTab("Albums"),
+            "6":       SwitchToTab("Playlists"),
+            "7":       SwitchToTab("Search"),
             "s":       Stop,
             "p":       TogglePause,
             "<":       NextTrack,
@@ -155,6 +156,27 @@
                     ),
                     (
                         size: "70%",
+                        pane: Pane(Queue)
+                    ),
+                ],
+            ),
+        ),
+        (
+            name: "Lyrics",
+            pane: Split(
+                direction: Vertical,
+                panes: [
+                    (
+                        size: "80%",
+                        pane: Pane(Lyrics),
+                    ),
+                    (
+                        size: "2",
+                        borders: "TOP",
+                        pane: Pane(QueueHeader())
+                    ),
+                    (
+                        size: "20%",
                         pane: Pane(Queue)
                     ),
                 ],
