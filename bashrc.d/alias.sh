@@ -7,6 +7,9 @@ alias fdh='/usr/bin/fd -H'
 alias diff=colordiff
 alias vim=nvim
 
+# run sync before shutdown so that data is not accidentally lost
+alias shutdown='/usr/bin/sync && /usr/bin/shutdown'
+
 # if they exist, use new tools for everyday use
 exists() {
     command -v "$1" >/dev/null 2>&1
