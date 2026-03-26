@@ -55,17 +55,14 @@
         (
             prop: (kind: Property(Artist),
                 style: (fg: "yellow", modifiers: "Bold"),
-                default: (
-                    kind: Text("Unknown"),
-                    style: (fg: "white")
-                ),
+                default: (kind: Text("-"), style: (fg: "dark_gray")),
             ),
             label_prop: (kind: Text("Artist")),
             width: "30%",
         ),
         (
             prop: (kind: Property(Title),
-                default: (kind: Text("Unknown"))
+                default: (kind: Property(Filename), style: (fg: "dark_gray"))
             ),
             label_prop: (kind: Text("Title")),
             width: "50%",
@@ -73,7 +70,7 @@
         (
             prop: (kind: Property(Album),
                 style: (fg: "magenta"),
-                default: (kind: Text("None"), style: (fg: "dark_gray")),
+                default: (kind: Text("-"), style: (fg: "dark_gray")),
             ),
             label_prop: (kind: Text("Album")),
             width: "20%",
@@ -81,7 +78,7 @@
         (
             prop: (kind: Property(Duration),
                 style: (fg: "blue"),
-                default: (kind: Text("-"), style: (fg: "blue"))
+                default: (kind: Text("-"), style: (fg: "dark_gray"))
             ),
             label_prop: (kind: Text("Duration")),
             width: "10",
@@ -124,8 +121,8 @@
                     kind: Property(Song(Title)),
                     style: (modifiers: "Bold"),
                     default: (
-                        kind: Text("No Song"),
-                        style: (modifiers: "Bold")
+                        kind: Property(Song(Filename)),
+                        style: (fg: "dark_gray", modifiers: "Bold")
                     )
                 )
             ],
@@ -136,7 +133,10 @@
                 (
                     kind: Property(Song(Artist)),
                     style: (fg: "yellow", modifiers: "Bold"),
-                    default: (kind: Text("Unknown"), style: (fg: "yellow", modifiers: "Bold"))
+                    default: (
+                        kind: Text("-"),
+                        style: (fg: "dark_gray", modifiers: "Bold")
+                    )
                 ),
             ],
             align: Center,
