@@ -24,6 +24,15 @@ fi
 
 export PATH
 
+# create mpd paths
+if [ ! -e $HOME/.local/state/mpd ]; then
+	mkdir $HOME/.local/state/mpd
+fi
+
+if [ ! -e $HOME/.cache/mpd ]; then
+	mkdir $HOME/.cache/mpd
+fi
+
 # environment variables
 export MPD_HOST=$HOME/.local/state/mpd/socket
 # LIBVA_DRIVER_NAME=vdpau
